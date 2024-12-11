@@ -1,8 +1,9 @@
 echo "Build Project"
-
 ./gradlew clean build
 
-echo "Start Server"
+echo "Load Environment Variables"
+export $(cat .env | xargs)
 
+echo "Start Server"
 cd ./build/libs
-java -jar chatchatchat-0.0.1-SNAPSHOT.jar
+java -Dspring.config.import=optional:file:.env -jar chatchatchat-0.0.1-SNAPSHOT.jar
